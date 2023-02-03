@@ -1,21 +1,35 @@
 import 'package:dt_delivery_app/app/core/ui/extensions/formatter_extension.dart';
 import 'package:dt_delivery_app/app/core/ui/styles/colors_app.dart';
 import 'package:dt_delivery_app/app/core/ui/styles/text_styles.dart';
+import 'package:dt_delivery_app/app/dto/order_product_dto.dart';
 import 'package:dt_delivery_app/app/models/product_model.dart';
+import 'package:dt_delivery_app/app/pages/home/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DeliveryProductTile extends StatelessWidget {
   final ProductModel product;
+  final OrderProductDto? orderProduct;
 
-  const DeliveryProductTile({super.key, required this.product});
+  const DeliveryProductTile({
+    super.key,
+    required this.product,
+    required this.orderProduct,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        await Navigator.of(context).pushNamed('/productDetail', arguments: {
+        final controller = context.read<HomeController>();
+        final orderProductResult = await Navigator.of(context).pushNamed('/productDetail', arguments: {
           'product': product,
+          'order': orderProduct,
         });
+
+        if (orderProductResult != null) {
+          controller.addOrUpdateBag(orderProductResult as OrderProductDto);
+        }
       },
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -46,16 +60,16 @@ class DeliveryProductTile extends StatelessWidget {
                       style: context.textStyles.textMedium.copyWith(fontSize: 12, color: context.colors.secondary),
                     ),
                   ),
-                  FadeInImage.assetNetwork(
-                    placeholder: 'assets/images/loading.gif',
-                    image: product.image,
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.cover,
-                  ),
                 ],
               ),
-            )
+            ),
+            FadeInImage.assetNetwork(
+              placeholder: 'assets/images/loading.gif',
+              image: product.image,
+              width: 100,
+              height: 100,
+              fit: BoxFit.contain,
+            ),
           ],
         ),
       ),

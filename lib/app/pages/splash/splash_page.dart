@@ -1,6 +1,4 @@
 import 'package:dt_delivery_app/app/core/ui/helpers/size_extensions.dart';
-import 'package:dt_delivery_app/app/core/ui/styles/app_styles.dart';
-import 'package:dt_delivery_app/app/core/ui/styles/colors_app.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/ui/widgets/delivery_button.dart';
