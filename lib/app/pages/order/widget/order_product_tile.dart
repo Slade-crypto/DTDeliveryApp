@@ -1,3 +1,4 @@
+import 'package:dt_delivery_app/app/core/ui/extensions/formatter_extension.dart';
 import 'package:dt_delivery_app/app/core/ui/styles/colors_app.dart';
 import 'package:dt_delivery_app/app/core/ui/styles/text_styles.dart';
 import 'package:dt_delivery_app/app/core/ui/widgets/delivery_increment_decrement_button.dart';
@@ -16,12 +17,13 @@ class OrderProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final product = orderProduct.product;
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Row(
         children: [
           Image.network(
-            '',
+            product.image,
             width: 100,
             height: 100,
             fit: BoxFit.cover,
@@ -33,14 +35,14 @@ class OrderProductTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'X-burguer',
+                    product.name,
                     style: context.textStyles.textRegular.copyWith(fontSize: 16),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '19,10',
+                        (orderProduct.amout * product.price).currencyPTBR,
                         style: context.textStyles.textMedium.copyWith(fontSize: 14, color: context.colors.secondary),
                       ),
                       DeliveryIncrementDecrementButton.compact(
