@@ -32,39 +32,40 @@ class _ProductDetailPageState extends BaseState<ProductDetailPage, ProductDetail
 
   void _showConfirmDelete(int amount) {
     showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Deseja excluir o prouto?'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text(
-                  'Cancelar',
-                  style: context.textStyles.textBold.copyWith(color: Colors.red),
-                ),
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Deseja excluir o prouto?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Cancelar',
+                style: context.textStyles.textBold.copyWith(color: Colors.red),
               ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.of(context).pop(
-                    OrderProductDto(
-                      product: widget.product,
-                      amout: amount,
-                    ),
-                  );
-                },
-                child: Text(
-                  'Confirmar',
-                  style: context.textStyles.textBold,
-                ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.of(context).pop(
+                  OrderProductDto(
+                    product: widget.product,
+                    amout: amount,
+                  ),
+                );
+              },
+              child: Text(
+                'Confirmar',
+                style: context.textStyles.textBold,
               ),
-            ],
-          );
-        });
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -124,10 +125,11 @@ class _ProductDetailPageState extends BaseState<ProductDetailPage, ProductDetail
                     },
                   )),
               Container(
-                  width: context.percentWidth(.5),
-                  height: 68,
-                  padding: const EdgeInsets.all(8),
-                  child: BlocBuilder<ProductDetailController, int>(builder: (context, amout) {
+                width: context.percentWidth(.5),
+                height: 68,
+                padding: const EdgeInsets.all(8),
+                child: BlocBuilder<ProductDetailController, int>(
+                  builder: (context, amout) {
                     return ElevatedButton(
                       style: amout == 0 ? ElevatedButton.styleFrom(backgroundColor: Colors.red) : null,
                       onPressed: () {
@@ -155,9 +157,7 @@ class _ProductDetailPageState extends BaseState<ProductDetailPage, ProductDetail
                               'Adicionar',
                               style: context.textStyles.textExtraBold.copyWith(fontSize: 13),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
+                            const SizedBox(height: 10),
                             Expanded(
                               child: AutoSizeText(
                                 (widget.product.price * amout).currencyPTBR,
@@ -172,7 +172,9 @@ class _ProductDetailPageState extends BaseState<ProductDetailPage, ProductDetail
                         ),
                       ),
                     );
-                  })),
+                  },
+                ),
+              ),
             ],
           ),
         ],

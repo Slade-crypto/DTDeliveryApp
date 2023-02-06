@@ -32,7 +32,7 @@ class PaymentTypesField extends StatelessWidget {
           ),
           SmartSelect<String>.single(
             title: '',
-            selectedValue: '',
+            selectedValue: valueSelected,
             modalType: S2ModalType.bottomSheet,
             onChange: (selected) {
               valueChanged(int.parse(selected.value));

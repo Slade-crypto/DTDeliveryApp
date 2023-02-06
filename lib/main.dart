@@ -9,5 +9,5 @@ import 'app/core/config/env/env.dart';
 void main() async {
   await Env.i.load();
   HttpOverrides.global = HttpOverride();
-  runApp(const DwDeliveryApp());
+  runApp(DwDeliveryApp());
 }
